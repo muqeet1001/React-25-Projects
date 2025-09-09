@@ -1,26 +1,51 @@
-import React from 'react'
+import React from "react";
+import dataFromFAQ from "../Data/dataForFAQ";
 
 function FAQ() {
+  const [selectedQuestion, setSelectedQuestion] = React.useState(null);
+//  const [isSelected ,setisSelected] = React.useState(false)
+     
+  const handleQuestion = (questionId) => {
+    setSelectedQuestion(questionId);
+   // setisSelected(selectedQuestion == questionId ? true : false);
+  };
+
   return (
     <div>
-      <div className="w-full max-w-md mx-auto bg-white shadow-md rounded-lg p-4">
-  {/* Question Row */}
-  <div className="flex justify-between items-center cursor-pointer">
-    <h2 className="text-lg font-semibold text-gray-800">
-      What is React?
-    </h2>
-    <span className="text-2xl font-bold text-gray-600">+</span>
-  </div>
+      {dataFromFAQ.map((item) => {
+       // const isSelected = selectedQuestion === item.id;
 
-  {/* Answer (hidden by default, you will toggle this with JS) */}
-  <div className="mt-2 text-gray-600 text-sm hidden">
-    React is a JavaScript library for building user interfaces. It helps
-    create reusable UI components.
-  </div>
-</div>
+        return (
+          <div
+            key={item.id}
+            className="w-screen flex justify-center items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-6"
+          >
+            <div className="w-full max-w-md bg-white shadow-lg rounded-2xl overflow-hidden">
+              {/* Question Row */}
+              <div
+                className="flex justify-between items-center px-5 py-4 cursor-pointer hover:bg-gray-50 transition"
+                onClick={() => handleQuestion(item.id)}
+              >
+                <h2 className="text-base font-medium text-gray-800">
+                  {item.question}
+                </h2>
+                <span className="text-xl font-bold text-gray-500">
+                  {isSelected ? "-" : "+"}
+                </span>
+              </div>
 
+              {/* Answer */}
+              {isSelected && (
+                <div className="px-5 pb-4 text-gray-600 text-sm">
+                  {item.answer}
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      })}
     </div>
-  )
+  );
 }
 
-export default FAQ
+export default FAQ;
