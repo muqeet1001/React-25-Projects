@@ -1,8 +1,8 @@
  import React from 'react'
- 
+ import ImageSlider from './Components/ImageSlider'
  function App() {
    return (
-     <div>App</div>
+     <ImageSlider />
    )
  }
  
